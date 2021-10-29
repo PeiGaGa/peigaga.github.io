@@ -159,6 +159,24 @@
 
 
 </span>
+	      <p>
+	      	import Vue from 'vue';
+import * as filters from '../filters';
+
+Object.keys(filters).forEach(key => {
+  Vue.filter(key, filters[key]);
+});
+
+const context = require.context('../views/', true, /router\.js$/);
+
+const router = [];
+
+context.keys().forEach(key => {
+  router.push(...context(key).default);
+});
+
+export default router;
+	      </p>
       </li>
     
   </ul>
