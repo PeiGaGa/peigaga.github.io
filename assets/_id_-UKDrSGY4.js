@@ -1,0 +1,1 @@
+import{N as t}from"./NewsDetail-BvEO0x2g.js";import{b as o}from"./route-block-B_A1xBdJ.js";import{c as e,o as r}from"./app-CPoFN5W-.js";const a={__name:"[id]",setup(c){return(s,p)=>(r(),e(t))}};typeof o=="function"&&o(a);export{a as default};

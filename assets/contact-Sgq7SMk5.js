@@ -1,0 +1,1 @@
+import{C as t}from"./Contact-B2SRTA9u.js";import{b as o}from"./route-block-B_A1xBdJ.js";import{c as r,o as c}from"./app-CPoFN5W-.js";import"./ex-BRQxu07Q.js";import"./copy-CxIfToEj.js";const a={__name:"contact",setup(e){return(p,m)=>(c(),r(t))}};typeof o=="function"&&o(a);export{a as default};

@@ -1,0 +1,1 @@
+import{_ as o,q as a,d as n,o as r,e,t as c,f as _}from"./app-CPoFN5W-.js";const l={class:"section"},p={__name:"NewsDetail",setup(i){const t=a();return(u,s)=>(r(),n("section",l,[e("h1",null,"新闻详情 #"+c(_(t).params.id),1),s[0]||(s[0]=e("p",null,"这里展示新闻的标题、封面、正文内容（占位）。",-1))]))}},m=o(p,[["__scopeId","data-v-9b913785"]]);export{m as N};
