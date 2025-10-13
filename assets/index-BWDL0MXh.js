@@ -1,1 +1,0 @@
-import{N as t}from"./NewsList-B_cJNSaV.js";import{b as o}from"./route-block-B_A1xBdJ.js";import{c as r,o as e}from"./app-D4HU-DVp.js";import"./pagination-y1ZI8dSw.js";import"./autoplay-PRsny3mi.js";import"./ex-CQeH4dGu.js";const p={__name:"index",setup(c){return(i,m)=>(e(),r(t))}};typeof o=="function"&&o(p);export{p as default};

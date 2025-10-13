@@ -1,1 +1,0 @@
-import{N as t}from"./NewsDetail-VW2OnPWg.js";import{b as o}from"./route-block-B_A1xBdJ.js";import{c as e,o as r}from"./app-D4HU-DVp.js";const a={__name:"[id]",setup(c){return(s,p)=>(r(),e(t))}};typeof o=="function"&&o(a);export{a as default};
