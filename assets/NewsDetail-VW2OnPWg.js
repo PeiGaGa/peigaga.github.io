@@ -1,0 +1,1 @@
+import{_ as a,B as o,a as n,o as r,b as e,t as c,d as _}from"./app-D4HU-DVp.js";const l={class:"section"},p={__name:"NewsDetail",setup(i){const t=o();return(u,s)=>(r(),n("section",l,[e("h1",null,"新闻详情 #"+c(_(t).params.id),1),s[0]||(s[0]=e("p",null,"这里展示新闻的标题、封面、正文内容（占位）。",-1))]))}},m=a(p,[["__scopeId","data-v-9b913785"]]);export{m as N};

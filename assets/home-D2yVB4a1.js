@@ -1,0 +1,1 @@
+import{H as r}from"./Home-D9iXqlQo.js";import{b as o}from"./route-block-B_A1xBdJ.js";import{c as t,o as e}from"./app-D4HU-DVp.js";import"./pagination-y1ZI8dSw.js";import"./autoplay-PRsny3mi.js";import"./ex-CQeH4dGu.js";const m={__name:"home",setup(p){return(c,a)=>(e(),t(r))}};typeof o=="function"&&o(m);export{m as default};
