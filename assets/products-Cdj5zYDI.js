@@ -1,0 +1,1 @@
+import{P as t}from"./ProductList-D3eLNZAN.js";import{b as o}from"./route-block-B_A1xBdJ.js";import{c as r,o as c}from"./app-C1nSR-DK.js";import"./pagination-BPiHsJZc.js";import"./ex-CQeH4dGu.js";const p={__name:"products",setup(e){return(s,a)=>(c(),r(t))}};typeof o=="function"&&o(p);export{p as default};

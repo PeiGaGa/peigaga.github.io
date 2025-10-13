@@ -1,0 +1,1 @@
+import{F as r}from"./Farming-DYC3L8W0.js";import{b as o}from"./route-block-B_A1xBdJ.js";import{c as t,o as a}from"./app-C1nSR-DK.js";import"./ex-CQeH4dGu.js";const c={__name:"farming",setup(e){return(m,n)=>(a(),t(r))}};typeof o=="function"&&o(c);export{c as default};

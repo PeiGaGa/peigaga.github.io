@@ -1,0 +1,1 @@
+import{C as t}from"./Contact-CPlmQO99.js";import{b as o}from"./route-block-B_A1xBdJ.js";import{c,o as r}from"./app-C1nSR-DK.js";import"./ex-CQeH4dGu.js";const a={__name:"contact",setup(e){return(n,p)=>(r(),c(t))}};typeof o=="function"&&o(a);export{a as default};
