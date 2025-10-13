@@ -1,1 +1,0 @@
-import{P as t}from"./ProductList-BfjUVrXq.js";import{b as o}from"./route-block-B_A1xBdJ.js";import{c as r,o as c}from"./app-CPoFN5W-.js";import"./ex-BRQxu07Q.js";import"./copy-CxIfToEj.js";const p={__name:"products",setup(e){return(s,a)=>(c(),r(t))}};typeof o=="function"&&o(p);export{p as default};

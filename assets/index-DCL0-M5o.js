@@ -1,1 +1,0 @@
-import{N as t}from"./NewsList-DX7yXh0_.js";import{b as o}from"./route-block-B_A1xBdJ.js";import{c as r,o as e}from"./app-CPoFN5W-.js";import"./copy-CxIfToEj.js";import"./ex-BRQxu07Q.js";const c={__name:"index",setup(p){return(s,a)=>(e(),r(t))}};typeof o=="function"&&o(c);export{c as default};
