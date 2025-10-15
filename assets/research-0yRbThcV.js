@@ -1,1 +1,0 @@
-import{R as r}from"./Research-B5K0jn48.js";import{b as o}from"./route-block-B_A1xBdJ.js";import{c as e,o as t}from"./app-C1nSR-DK.js";import"./ex-CQeH4dGu.js";const c={__name:"research",setup(a){return(s,p)=>(t(),e(r))}};typeof o=="function"&&o(c);export{c as default};

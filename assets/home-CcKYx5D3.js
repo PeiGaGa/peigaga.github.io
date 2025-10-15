@@ -1,1 +1,0 @@
-import{H as r}from"./Home-DSCLLADy.js";import{b as o}from"./route-block-B_A1xBdJ.js";import{c as t,o as e}from"./app-C1nSR-DK.js";import"./pagination-BPiHsJZc.js";import"./autoplay-ZjCjAd8a.js";import"./ex-CQeH4dGu.js";const m={__name:"home",setup(p){return(c,a)=>(e(),t(r))}};typeof o=="function"&&o(m);export{m as default};
