@@ -24,6 +24,220 @@ button {
   background-color: transparent;
 }
 
+/* ---------- UEditor 富文本兼容（新闻详情页渲染） ---------- */
+/*
+  目标：让后台 UEditor 生成的 HTML（包含内联样式 + 部分 class 模板）
+  在 .news-detail-content .news-detail-body 中尽量“所见即所得”。
+  注意：这里全部做了作用域限制，避免影响全站其它区域。
+*/
+.news-detail-content .news-detail-body img,
+.news-detail-content .news-detail-body video,
+.news-detail-content .news-detail-body iframe {
+  max-width: 100%;
+  height: auto;
+}
+
+.news-detail-content .news-detail-body iframe {
+  display: block;
+}
+
+/* UEditor 上传图片常见“居中”写法兜底处理 */
+/* 1）段落设置 text-align:center 或 align="center" 的情况 */
+.news-detail-content .news-detail-body p[style*="text-align:center"],
+.news-detail-content .news-detail-body p[style*="text-align: center"],
+.news-detail-content .news-detail-body p[align="center"],
+.news-detail-content .news-detail-body div[style*="text-align:center"],
+.news-detail-content .news-detail-body div[style*="text-align: center"],
+.news-detail-content .news-detail-body div[align="center"] {
+  text-align: center;
+}
+.news-detail-content .news-detail-body p[style*="text-align:center"] img,
+.news-detail-content .news-detail-body p[style*="text-align: center"] img,
+.news-detail-content .news-detail-body p[align="center"] img,
+.news-detail-content .news-detail-body div[style*="text-align:center"] img,
+.news-detail-content .news-detail-body div[style*="text-align: center"] img,
+.news-detail-content .news-detail-body div[align="center"] img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* 2）图片自己带 text-align:center 的情况 */
+.news-detail-content .news-detail-body img[style*="text-align:center"],
+.news-detail-content .news-detail-body img[style*="text-align: center"] {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* UEditor 常见图片对齐：有些内容会只给 img 设置 margin:auto 或 display:inline */
+.news-detail-content .news-detail-body p img,
+.news-detail-content .news-detail-body div img {
+  max-width: 100%;
+}
+
+/* 表格：UEditor 插入表格常见为 table/td/th，不同主题下可能缺边框与溢出处理 */
+.news-detail-content .news-detail-body table {
+  width: 100%;
+  max-width: 100%;
+  border-collapse: collapse;
+  border-spacing: 0;
+  margin: 0.8em 0;
+}
+.news-detail-content .news-detail-body th,
+.news-detail-content .news-detail-body td {
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  padding: 0.5em 0.6em;
+  vertical-align: top;
+  word-break: break-word;
+}
+.news-detail-content .news-detail-body thead th {
+  background: rgba(0, 0, 0, 0.03);
+}
+
+/* 列表：有些富文本会被全局 reset 去掉 list-style，这里强制恢复 */
+.news-detail-content .news-detail-body ul,
+.news-detail-content .news-detail-body ol {
+  padding-left: 1.5em;
+}
+.news-detail-content .news-detail-body ul {
+  list-style: disc;
+}
+.news-detail-content .news-detail-body ol {
+  list-style: decimal;
+}
+.news-detail-content .news-detail-body li {
+  margin: 0.3em 0;
+}
+
+.news-detail-content .news-detail-body blockquote {
+  margin: 0.8em 0;
+  padding: 0.6em 1em;
+  border-left: 4px solid rgba(0, 0, 0, 0.12);
+  background: rgba(0, 0, 0, 0.02);
+}
+
+.news-detail-content .news-detail-body hr {
+  border: none;
+  border-top: 1px solid rgba(0, 0, 0, 0.12);
+  margin: 1em 0;
+}
+
+.news-detail-content .news-detail-body pre {
+  white-space: pre-wrap;
+  word-break: break-word;
+  padding: 0.9em 1em;
+  background: rgba(0, 0, 0, 0.03);
+  border-radius: 8px;
+  overflow: auto;
+}
+.news-detail-content .news-detail-body code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
+    "Courier New", monospace;
+  font-size: 0.95em;
+}
+
+/* 下面是后台 editor.vue initialStyle / src/admin/css/layout.css 里用到的模板类的前台映射 */
+.news-detail-content .news-detail-body .col-2_1v1,
+.news-detail-content .news-detail-body .col-2_1v1 > div,
+.news-detail-content .news-detail-body .col-2_2v1,
+.news-detail-content .news-detail-body .col-2_2v1 > div {
+  overflow: hidden;
+  clear: both;
+}
+.news-detail-content .news-detail-body .col-2_1v1 > div img,
+.news-detail-content .news-detail-body .col-2_2v1 > div img {
+  max-width: 100%;
+}
+.news-detail-content .news-detail-body .col-2_1v1 {
+  width: 100%;
+}
+.news-detail-content .news-detail-body .col-2_1v1 > div:nth-child(even) > div,
+.news-detail-content .news-detail-body .col-2_1v1 > div:nth-child(odd) > div {
+  width: 44%;
+  padding: 3%;
+}
+.news-detail-content .news-detail-body .col-2_1v1 td {
+  border: 1px solid #737373;
+}
+.news-detail-content .news-detail-body .col-2_1v1.line > div:nth-child(2n) {
+  border-top: 1px solid #ededed;
+}
+.news-detail-content .news-detail-body .col-2_1v1 > div:nth-child(odd) > div:nth-child(odd) {
+  float: right;
+}
+.news-detail-content .news-detail-body .col-2_1v1 > div:nth-child(odd) > div:nth-child(even) {
+  float: left;
+  text-align: center;
+}
+.news-detail-content .news-detail-body .col-2_1v1 > div:nth-child(even) > div:nth-child(odd) {
+  float: left;
+}
+.news-detail-content .news-detail-body .col-2_1v1 > div:nth-child(even) > div:nth-child(even) {
+  float: right;
+  text-align: center;
+}
+.news-detail-content .news-detail-body .col-2_2v1 {
+  width: 100%;
+}
+.news-detail-content .news-detail-body .col-2_2v1 > div:nth-child(odd) > div {
+  padding: 3%;
+}
+.news-detail-content .news-detail-body .col-2_2v1 > div:nth-child(odd) > div:nth-child(odd) {
+  width: 60.66666667%;
+  float: left;
+}
+.news-detail-content .news-detail-body .col-2_2v1 > div:nth-child(odd) > div:nth-child(even) {
+  width: 27.33333333%;
+  float: right;
+}
+.news-detail-content .news-detail-body .col-2_2v1 > div:nth-child(even) {
+  background: #f8f9fb;
+}
+.news-detail-content .news-detail-body .col-2_2v1 > div:nth-child(even) > div {
+  padding: 3%;
+}
+.news-detail-content .news-detail-body .col-2_2v1 > div:nth-child(even) > div:nth-child(odd) {
+  width: 60.66666667%;
+  float: right;
+}
+.news-detail-content .news-detail-body .col-2_2v1 > div:nth-child(even) > div:nth-child(even) {
+  width: 27.33333333%;
+  float: left;
+}
+.news-detail-content .news-detail-body .product_list {
+  font-size: 16px;
+}
+.news-detail-content .news-detail-body .product_list strong {
+  margin: 1em 0;
+}
+.news-detail-content .news-detail-body .product_list p {
+  text-indent: 2em;
+  margin: 1em 0;
+}
+.news-detail-content .news-detail-body .product_list .btn-more {
+  margin-top: 1em;
+  display: inline-block;
+  margin-right: 10px;
+  padding: 0.5em;
+  text-align: center;
+  border-radius: 6px;
+  border: 1px solid #00b3dc;
+  color: #00b3dc;
+  transition: background 0.3s;
+}
+.news-detail-content .news-detail-body .btn-buy {
+  margin-top: 1em;
+  display: inline-block;
+  margin-right: 10px;
+  padding: 0.5em 2em;
+  text-align: center;
+  border-radius: 6px;
+  background: #0057a0;
+  color: #fff;
+  transition: background 0.3s;
+}
+
 button:active {
   opacity: 0.6;
 }
@@ -92,7 +306,7 @@ button:active {
 
 .card {
   flex: 1;
-  padding: 1.5vw 0;
+  padding: 1.5vw 0 0.2vw;
   border-bottom: 1px dashed rgba(200, 200, 200, 0.3);
 }
 
@@ -113,14 +327,27 @@ button:active {
   color: rgba(111, 111, 111, 1);
 }
 
+.card-desc-link-wrap {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+}
+
 .card-desc {
+  flex: 1 1 auto;
+  min-width: 0;
+  text-align: justify;
   font-size: 0.71vw;
   font-family: HarmonyOS_Sans_SC_Thin;
   font-weight: 100;
   color: rgba(219, 219, 219, 1);
   line-height: 1.35vw;
   text-align: justify;
-  margin-bottom: 1vw;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .card-active .card-desc {
@@ -128,10 +355,11 @@ button:active {
 }
 
 .card-link {
+  flex-shrink: 0;
+  margin-left: auto;
   font-size: 0.95vw;
   font-family: zihun57hao-chuangxihei-Regular;
   color: rgba(219, 219, 219, 1);
-  align-self: flex-end;
   cursor: pointer;
 }
 
@@ -423,9 +651,13 @@ button:active {
   padding-top: 60vw;
 }
 
+.news-detail-page .breeding-mode-title-wrap {
+  margin-bottom: 5vw;
+}
+
 .news-detail-content {
-  width: 55vw;
-  max-width: 720px;
+  width: 72.1vw;
+  max-width: none;
   margin: 0 auto;
   box-sizing: border-box;
 }
@@ -437,12 +669,14 @@ button:active {
   color: #000;
   line-height: 1.4;
   margin: 0 0 0.8vw 0;
+  text-align: center;
 }
 
 .news-detail-meta {
   font-size: 0.9vw;
   color: rgba(120, 120, 120, 1);
   margin: 0 0 1.5vw 0;
+  text-align: center;
 }
 
 .news-detail-hero-wrap {
@@ -458,15 +692,46 @@ button:active {
   object-fit: cover;
 }
 
+.news-detail-image-row {
+  display: flex;
+  gap: 1vw;
+  width: 100%;
+  margin: 1.5vw 0;
+}
+
+.news-detail-image-row > * {
+  flex: 1;
+  min-width: 0;
+}
+
+.news-detail-image-row img {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover;
+}
+
 .news-detail-body {
+  display: block;
+}
+
+.news-detail-section {
   display: flex;
   flex-direction: column;
-  gap: 1.2vw;
+  gap: 0.8vw;
+}
+
+.news-detail-nav {
+  width: 100%;
+  margin-top: 3vw;
+  display: flex;
+  justify-content: center;
+  gap: 2vw;
 }
 
 .news-detail-text {
   font-size: 0.95vw;
-  color: #333;
+  color: #6F6F6F;
   line-height: 1.8;
   text-align: justify;
   margin: 0;
@@ -510,7 +775,7 @@ button:active {
   font-size: 1.2vw;
   font-family: HarmonyOS_Sans_SC_Bold, sans-serif;
   font-weight: 700;
-  color: rgb(34, 77, 173);
+  color: #5F5F5F;
   margin: 0;
 }
 
@@ -518,6 +783,114 @@ button:active {
   font-size: 1vw;
   color: #0d1b2a;
   margin: 0 0 0.8vw 0;
+}
+
+/* ---------- 富文本编辑器内容（news-detail-body 内任意 HTML） ---------- */
+.news-detail-content .news-detail-body {
+  font-size: 0.95vw;
+  color: #6F6F6F;
+  line-height: 1.8;
+  text-align: justify;
+}
+
+.news-detail-content .news-detail-body p {
+  margin: 0 0 1em;
+}
+
+.news-detail-content .news-detail-body p:last-child {
+  margin-bottom: 0;
+}
+
+.news-detail-content .news-detail-body h1,
+.news-detail-content .news-detail-body h2,
+.news-detail-content .news-detail-body h3,
+.news-detail-content .news-detail-body h4,
+.news-detail-content .news-detail-body h5,
+.news-detail-content .news-detail-body h6 {
+  font-family: HarmonyOS_Sans_SC_Bold, sans-serif;
+  font-weight: 700;
+  color: #333;
+  margin: 1.2em 0 0.5em;
+  line-height: 1.4;
+}
+
+.news-detail-content .news-detail-body h1 { font-size: 1.4em; }
+.news-detail-content .news-detail-body h2 { font-size: 1.25em; }
+.news-detail-content .news-detail-body h3 { font-size: 1.1em; }
+.news-detail-content .news-detail-body h4,
+.news-detail-content .news-detail-body h5,
+.news-detail-content .news-detail-body h6 { font-size: 1em; }
+
+.news-detail-content .news-detail-body h1:first-child,
+.news-detail-content .news-detail-body h2:first-child,
+.news-detail-content .news-detail-body h3:first-child {
+  margin-top: 0;
+}
+
+.news-detail-content .news-detail-body ul,
+.news-detail-content .news-detail-body ol {
+  margin: 0.8em 0;
+  padding-left: 1.5em;
+}
+
+.news-detail-content .news-detail-body li {
+  margin: 0.3em 0;
+}
+
+.news-detail-content .news-detail-body blockquote {
+  margin: 1em 0;
+  padding: 0.5em 0 0.5em 1em;
+  border-left: 3px solid #ccc;
+  color: #555;
+}
+
+.news-detail-content .news-detail-body a {
+  color: #0d1b2a;
+  text-decoration: underline;
+}
+
+.news-detail-content .news-detail-body a:hover {
+  color: #333;
+}
+
+.news-detail-content .news-detail-body img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 1em 0;
+  vertical-align: middle;
+}
+
+.news-detail-content .news-detail-body strong {
+  font-weight: 700;
+}
+
+.news-detail-content .news-detail-body em {
+  font-style: italic;
+}
+
+.news-detail-content .news-detail-body hr {
+  border: none;
+  border-top: 1px solid #e0e0e0;
+  margin: 1.5em 0;
+}
+
+.news-detail-content .news-detail-body table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1em 0;
+}
+
+.news-detail-content .news-detail-body th,
+.news-detail-content .news-detail-body td {
+  border: 1px solid #e0e0e0;
+  padding: 0.5em 0.75em;
+  text-align: left;
+}
+
+.news-detail-content .news-detail-body th {
+  font-weight: 700;
+  background: #f5f5f5;
 }
 
 /* ========== 新闻详情页内容区移动端适配 ========== */
@@ -548,6 +921,12 @@ button:active {
 
   .news-detail-hero-wrap {
     margin-bottom: 4vw;
+  }
+
+  .news-detail-image-row {
+    flex-direction: column;
+    margin: 4vw 0;
+    gap: 2vw;
   }
 
   .news-detail-body {
@@ -585,6 +964,15 @@ button:active {
   .news-detail-placeholder-text {
     font-size: clamp(11px, 2.8vw, 13px);
   }
+
+  /* 富文本区移动端 */
+  .news-detail-content .news-detail-body {
+    font-size: clamp(14px, 3.8vw, 16px);
+  }
+
+  .news-detail-content .news-detail-body h1 { font-size: 1.35em; }
+  .news-detail-content .news-detail-body h2 { font-size: 1.2em; }
+  .news-detail-content .news-detail-body h3 { font-size: 1.1em; }
 }
 
 /* 产品中心轮播区域：固定高度避免塌陷，防止下方蓝色选项卡上移遮挡 */
@@ -616,8 +1004,17 @@ button:active {
   width: 100%;
   height: 34vw;
   margin: 0;
-  object-fit: cover;
+  object-fit: contain;
   display: block;
+}
+
+/* 产品中心页轮播：删除选项卡后放大图片（仅产品页，不影响首页产业轮播） */
+.products-content .product-center-swiper {
+  height: 48vw;
+}
+.products-content .product-center-swiper .image_4 {
+  height: 48vw;
+  object-fit: contain;
 }
 
 /* 产品轮播圆点 + 数字 01-05 */
@@ -639,6 +1036,12 @@ button:active {
   right: 0;
   margin-top: 0;
   z-index: 10;
+}
+
+/* 产品中心页：分页放在图片下方，不叠加在图片上 */
+.products-content .product-swiper-wrap .product-pagination {
+  position: static;
+  margin-top: 1.5vw;
 }
 
 .product-dots {
@@ -879,6 +1282,13 @@ button:active {
   padding: 0.4vw 0;
 }
 
+/* 关于我们 / 科研平台：根据滚动需要隐藏侧边栏时使用 */
+.page-sidebar.page-sidebar-hidden {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+}
+
 .about-anchor-nav {
   width: 100%;
   min-width: 0;
@@ -896,6 +1306,8 @@ button:active {
   position: fixed;
   top: 5.2vw;
   z-index: 10;
+  max-height: calc(100vh - 5.2vw - 2rem);
+  overflow-y: auto;
 }
 
 /* 每一行三块（如图）：① 最左空浅灰块 | ② 中间深蓝竖条 | ③ 右侧文字浅灰区 */
@@ -1300,11 +1712,14 @@ button:active {
   position: fixed;
   top: 5.2vw;
   z-index: 10;
+  max-height: calc(100vh - 5.2vw - 2rem);
+  overflow-y: auto;
 }
 
 .research-anchor-link {
   display: flex;
   align-items: stretch;
+  min-width: 0;
   padding: 0;
   font-size: 0.95vw;
   font-family: HarmonyOS_Sans_SC, Microsoft YaHei, sans-serif;
@@ -1581,6 +1996,8 @@ button:active {
   }
   .research-anchor-link {
     width: 100%;
+    min-width: 0;
+    overflow: hidden;
     box-sizing: border-box;
     font-size: 3.2vw;
     margin-top: 0;
@@ -1593,15 +2010,14 @@ button:active {
     display: none;
   }
   .research-anchor-link .research-anchor-text {
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
+    display: block;
+    width: 100%;
     padding: 2.5vw 4vw;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
     text-align: left;
-    flex: 1;
+    box-sizing: border-box;
   }
   .research-anchor-link:first-child .research-anchor-text {
     padding-top: 2.5vw;
@@ -1797,7 +2213,7 @@ button:active {
   width: 100%;
   height: 34vw;
   margin: 0;
-  object-fit: cover;
+  object-fit: contain;
   display: block;
 }
 
@@ -1999,10 +2415,11 @@ button:active {
   position: relative;
   width: 71.91vw;
   margin: 6.02vw auto 0;
+  overflow: hidden;
 }
 
 .video-poster-img {
-  width: 100%;
+  width: 99.5%;
   height: auto;
   display: block;
   vertical-align: top;
@@ -2016,8 +2433,11 @@ button:active {
   height: 100%;
   margin: 0;
   aspect-ratio: unset;
-  object-fit: contain;
-  background: #000;
+  object-fit: cover;
+  background: #fff;
+  display: block;
+  border: none;
+  outline: none;
 }
 
 .image_8 {
@@ -2025,8 +2445,11 @@ button:active {
   height: auto;
   aspect-ratio: 16 / 9;
   margin: 6.02vw auto 0;
-  object-fit: contain;
-  background: #000;
+  object-fit: cover;
+  background: #fff;
+  display: block;
+  border: none;
+  outline: none;
 }
 
 .image_8-below {
@@ -2127,6 +2550,92 @@ button:active {
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+/* 新闻卡片统一结构（语义化类名） */
+#newsSection .news-card-inner {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+#newsSection .news-card-link {
+  text-decoration: none;
+  color: inherit;
+}
+
+#newsSection .news-card-img {
+  width: 23.56vw;
+  height: 15.69vw;
+  margin-top: 0.02vw;
+  object-fit: cover;
+}
+
+#newsSection .news-card-meta {
+  width: 7.38vw;
+  height: 0.54vw;
+  overflow-wrap: break-word;
+  color: rgba(111, 111, 111, 1);
+  font-size: 0.55vw;
+  font-family: HarmonyOS_Sans_SC_Thin;
+  font-weight: 100;
+  text-align: left;
+  white-space: nowrap;
+  line-height: 1.6vw;
+  margin: 1.34vw 0 0 2.47vw;
+}
+
+#newsSection .news-card-title {
+  width: 18.64vw;
+  height: 1.98vw;
+  overflow-wrap: break-word;
+  margin: 1.65vw 0 0 2.45vw;
+  padding: 0;
+  border: 0;
+  color: rgba(72, 71, 71, 1);
+  font-size: 0.78vw;
+  font-family: HarmonyOS_Sans_SC_Bold;
+  font-weight: 700;
+  text-align: justifyLeft;
+  line-height: 1.2vw;
+}
+
+#newsSection .news-card-desc {
+  width: 18.7vw;
+  overflow-wrap: break-word;
+  margin: 1.19vw 0 0 2.43vw;
+  padding: 0;
+  border: 0;
+  color: rgba(72, 71, 71, 1);
+  font-size: 0.63vw;
+  font-family: HarmonyOS_Sans_SC_Thin;
+  font-weight: 100;
+  text-align: justifyLeft;
+  line-height: 1.12vw;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+#newsSection .news-card-footer {
+  width: 3.96vw;
+  height: 0.62vw;
+  margin: 4.6vw 0 1.7vw 17.19vw;
+}
+
+#newsSection .news-card-footer .news-read-more {
+  width: 2.86vw;
+  height: 0.62vw;
+  overflow-wrap: break-word;
+  color: rgba(72, 71, 71, 1);
+  font-size: 0.63vw;
+  font-family: HarmonyOS_Sans_SC_Thin;
+  font-weight: 100;
+  text-align: justifyLeft;
+  white-space: nowrap;
+  line-height: 1.12vw;
 }
 
 .image_11 {
@@ -2508,6 +3017,14 @@ button:active {
   box-sizing: border-box;
 }
 
+.image-wrapper_2 .product-carousel-link {
+  display: block;
+  width: 100%;
+  height: 100%;
+  text-decoration: none;
+  color: inherit;
+}
+
 .image-wrapper_2 .image_24 {
   width: 100%;
   height: 100%;
@@ -2622,6 +3139,8 @@ button:active {
   height: 24.69vw;
   background: #1e2532;
   margin-top: 4.78vw;
+  position: relative;
+  z-index: 20;
 }
 
 .group_3 {
@@ -3401,8 +3920,9 @@ button:active {
   overflow-wrap: break-word;
   color: rgba(255, 255, 255, 1);
   font-size: 1.07vw;
-  font-family: HarmonyOS_Sans_SC;
-  font-weight: normal;
+  font-family: HarmonyOS_Sans_SC_Regular, "HarmonyOS Sans SC", -apple-system,
+    BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", sans-serif;
+  font-weight: 400;
   text-align: center;
   white-space: nowrap;
   line-height: 1.08vw;
@@ -3453,8 +3973,9 @@ button:active {
   overflow-wrap: break-word;
   color: rgba(255, 255, 255, 1);
   font-size: 1.07vw;
-  font-family: HarmonyOS_Sans_SC;
-  font-weight: normal;
+  font-family: HarmonyOS_Sans_SC_Regular, "HarmonyOS Sans SC", -apple-system,
+    BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", sans-serif;
+  font-weight: 400;
   text-align: center;
   line-height: 1.08vw;
   margin-top: -2.05vw;
@@ -3515,9 +4036,46 @@ button:active {
   margin: 0;
 }
 
+.news-detail-title-main {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
 .breeding-mode-title-wrap .image_3 {
   margin-left: 0;
   margin-top: 1.3vw;
+}
+
+.news-detail-back-btn,
+.news-detail-nav-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 8vw;
+  padding: 0.7vw 2.8vw;
+  border: 1px solid #D3D3D3;
+  background-color: #fff;
+  color: #9F9F9F;
+  font-size: 0.95vw;
+  font-family: HarmonyOS_Sans_SC_Thin, sans-serif;
+  text-decoration: none;
+  box-sizing: border-box;
+}
+
+.news-detail-back-btn:hover,
+.news-detail-nav-btn:hover {
+  border-color: #BEBEBE;
+  color: #6F6F6F;
+}
+
+@media (max-width: 900px) {
+  .news-detail-back-btn,
+  .news-detail-nav-btn {
+    min-width: auto;
+    padding: 1.5vw 7vw;
+    font-size: 3.2vw;
+  }
 }
 
 .breeding-mode-title-img-wrap {
@@ -3641,9 +4199,10 @@ button:active {
   overflow-wrap: break-word;
   color: rgba(96, 96, 96, 1);
   font-size: 0.78vw;
-  font-family: HarmonyOS_Sans_SC_Thin;
-  font-weight: 100;
-  text-align: justifyLeft;
+  font-family: HarmonyOS_Sans_SC_Regular, "HarmonyOS Sans SC", -apple-system,
+    BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", sans-serif;
+  font-weight: 400;
+  text-align: justify;
   line-height: 2.04vw;
   margin: 3.11vw 0 0 0.01vw;
 }
@@ -3779,8 +4338,9 @@ button:active {
   overflow-wrap: break-word;
   color: rgba(255, 255, 255, 1);
   font-size: 0.9vw;
-  font-family: HarmonyOS_Sans_SC;
-  font-weight: normal;
+  font-family: HarmonyOS_Sans_SC_Regular, "HarmonyOS Sans SC", -apple-system,
+    BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", sans-serif;
+  font-weight: 400;
   text-align: left;
   line-height: 3.25vw;
   margin: 0.42vw 0 0 11.17vw;
@@ -3792,8 +4352,9 @@ button:active {
   overflow-wrap: break-word;
   color: rgba(255, 255, 255, 1);
   font-size: 0.9vw;
-  font-family: HarmonyOS_Sans_SC;
-  font-weight: normal;
+  font-family: HarmonyOS_Sans_SC_Regular, "HarmonyOS Sans SC", -apple-system,
+    BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", sans-serif;
+  font-weight: 400;
   text-align: left;
   line-height: 3.25vw;
   margin: 0.4vw 0 0 8.38vw;
@@ -3805,8 +4366,9 @@ button:active {
   overflow-wrap: break-word;
   color: rgba(255, 255, 255, 1);
   font-size: 0.9vw;
-  font-family: HarmonyOS_Sans_SC;
-  font-weight: normal;
+  font-family: HarmonyOS_Sans_SC_Regular, "HarmonyOS Sans SC", -apple-system,
+    BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", sans-serif;
+  font-weight: 400;
   text-align: left;
   line-height: 3.25vw;
   margin: 0.4vw 0 0 8.37vw;
@@ -3973,9 +4535,10 @@ button:active {
   overflow-wrap: break-word;
   color: rgba(96, 96, 96, 1);
   font-size: 0.78vw;
-  font-family: HarmonyOS_Sans_SC_Thin;
-  font-weight: 100;
-  text-align: justifyLeft;
+  font-family: HarmonyOS_Sans_SC_Regular, "HarmonyOS Sans SC", -apple-system,
+    BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", sans-serif;
+  font-weight: 400;
+  text-align: justify;
   line-height: 1.68vw;
   margin: 3.64vw 0 8.96vw 1.47vw;
 }
@@ -4019,9 +4582,10 @@ button:active {
   overflow-wrap: break-word;
   color: rgba(96, 96, 96, 1);
   font-size: 0.78vw;
-  font-family: HarmonyOS_Sans_SC_Thin;
-  font-weight: 100;
-  text-align: justifyLeft;
+  font-family: HarmonyOS_Sans_SC_Regular, "HarmonyOS Sans SC", -apple-system,
+    BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", sans-serif;
+  font-weight: 400;
+  text-align: justify;
   line-height: 1.68vw;
   margin: 3.64vw 0 10.67vw 1.45vw;
 }
@@ -4135,6 +4699,8 @@ button:active {
     max-width: 100%;
     margin-left: auto;
     margin-right: auto;
+    /* 顶部再留出一点空间，避免紧贴导航条 */
+    margin-top: 6vw;
     padding: 0 2vw 8vw;
     box-sizing: border-box;
   }
@@ -4166,7 +4732,7 @@ button:active {
     width: 50vw;
     max-width: 200px;
     height: 3px;
-    margin-bottom: 5vw;
+    margin-bottom: 7vw;
   }
 
   .contact-company-block {
@@ -4461,8 +5027,12 @@ button:active {
 
   /* 产业布局轮播 */
   .image_4-swiper {
-    width: 80vw;
-    margin: 3vw auto 0;
+    /* 移动端占满屏宽，防止左右露出上一张/下一张 */
+    width: 100vw;
+    margin: 3vw 0 0;
+    overflow: hidden;
+    left: 50%;
+    transform: translateX(-50%);
   }
 
   .image_4-swiper .image_4 {
@@ -4501,10 +5071,18 @@ button:active {
     margin-bottom: 1.5vw;
   }
 
+  .card-desc-link-wrap {
+    margin-top: 0.5vw;
+  }
+
   .card-desc {
     font-size: 3vw;
     line-height: 1.6;
-    margin-bottom: 2vw;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   .card-link {
@@ -4577,6 +5155,69 @@ button:active {
 
   #newsSection .news-card {
     box-shadow: 0 1vw 3vw rgba(0, 0, 0, 0.08);
+  }
+
+  #newsSection .news-card-img {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 3 / 2;
+  }
+
+  #newsSection .news-card-meta {
+    width: auto;
+    height: auto;
+    font-size: 2.8vw;
+    line-height: 1.5;
+    margin: 3vw 0 0 4vw;
+    white-space: normal;
+  }
+
+  #newsSection .news-card-title {
+    width: auto;
+    height: auto;
+    font-size: 3.5vw;
+    line-height: 1.5;
+    margin: 2vw 0 0 4vw;
+    padding-right: 4vw;
+  }
+
+  #newsSection .news-card-desc {
+    width: auto;
+    height: auto;
+    font-size: 3vw;
+    line-height: 1.6;
+    margin: 2vw 0 0 4vw;
+    padding-right: 4vw;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  #newsSection .news-card-footer {
+    width: auto;
+    height: auto;
+    margin: 3vw 4vw 4vw auto;
+    padding: 2vw 0;
+    align-self: flex-end;
+  }
+
+  #newsSection .news-card-footer .news-read-more {
+    width: auto;
+    height: auto;
+    font-size: clamp(14px, 3.5vw, 16px);
+    font-weight: 500;
+    line-height: 1.5;
+    display: inline-block;
+    padding: 2vw 0 2vw 2vw;
+    white-space: nowrap;
+    color: rgba(72, 71, 71, 1);
+    -webkit-tap-highlight-color: rgba(226, 128, 0, 0.2);
+  }
+
+  #newsSection .news-card-footer .news-read-more:active {
+    color: rgba(226, 128, 0, 1);
   }
 
   .image_11,
@@ -4896,14 +5537,14 @@ button:active {
   }
 
   .products-content .product-center-swiper {
-    height: 52vw;
-    min-height: 200px;
+    height: 68vw;
+    min-height: 260px;
   }
 
   .products-content .product-center-swiper .image_4 {
-    height: 52vw;
-    min-height: 200px;
-    object-fit: cover;
+    height: 68vw;
+    min-height: 260px;
+    object-fit: contain;
   }
 
   .products-content .product-swiper-wrap .image_4-nav {
@@ -4918,9 +5559,8 @@ button:active {
   }
 
   .products-content .product-pagination {
-    bottom: 2vw;
-    left: 0;
-    right: 0;
+    position: static;
+    margin-top: 2vw;
   }
 
   .products-content .product-dots {
